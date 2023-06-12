@@ -1,2 +1,3 @@
 # Algorithms
-Python algorithms 
+1)Binary
+2)Mergesort
