@@ -1,0 +1,76 @@
+import os
+import time
+import random
+print("SORTING ALGO #01")
+def binary_search(lst, target):
+    low = 0
+    high = len(lst) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if lst[mid] == target:
+            return mid
+        elif lst[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+def generate_random_list(length, min_val, max_val):
+    lst = [random.randint(min_val, max_val) for i in range(length)]
+    print("Randomly generated list: ", lst)
+    return lst
+
+def get_user_input():
+    while True:
+        try:
+            length = int(input("Enter the length of the list: "))
+            min_val = int(input("Enter the minimum value of the list: "))
+            max_val = int(input("Enter the maximum value of the list: "))
+            lst = [int(x) for x in input("Enter the list values separated by spaces: ").split()]
+            if sorted(lst) != lst:
+                raise ValueError("List must be sorted.")
+            target = int(input("Enter the target value to search for: "))
+            return lst, target
+        except ValueError as e:
+            print("Invalid input:", e)
+            print("Please try again.\n")
+
+def menu():
+    print("Binary Search Menu")
+    print("1. Use randomly generated list")
+    print("2. Input your own list")
+    print("3. Quit\n")
+
+while True:
+    os.system("clear")  # clear console on UNIX based systems
+    menu()
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        length = int(input("Enter the length of the list: "))
+        min_val = int(input("Enter the minimum value of the list: "))
+        max_val = int(input("Enter the maximum value of the list: "))
+        lst = generate_random_list(length, min_val, max_val)
+        target = int(input("Enter the target value to search for: "))
+        result = binary_search(lst, target)
+        if result != -1:
+            print(f"Found {target} at index {result}")
+        else:
+            print(f"{target} was not found in the list")
+        input("Press Enter to continue...")
+    elif choice == "2":
+        lst, target = get_user_input()
+        result = binary_search(lst, target)
+        if result != -1:
+            print(f"Found {target} at index {result}")
+        else:
+            print(f"{target} was not found in the list")
+        input("Press Enter to continue...")
+    elif choice == "3":
+        print("Have a good day!")
+        break
+    else:
+        print("Invalid choice. Please try again.\n")
+        time.sleep(1)  # wait for 1 second before displaying menu again
